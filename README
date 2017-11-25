@@ -1,0 +1,55 @@
+*************** CONNECT N by Tim Nguyen ******************
+
+Connect N constructs a Connect 4-esque game (https://en.wikipedia.org/wiki/Connect_Four) with a text-based interface, except any sized board and any number of pieces to win can be used.
+
+Can be played with humans and AI's.
+
+A BadPlayer AI will make random moves.
+A SmartPlayer AI will make the best possible move and is unbeatable if it goes first. It prioritizes early victories and delayed losses.
+
+
+
+******************** FILES *******************************
+
+Game.cpp
+	- Sets up game
+	- (#Columns, #Rows, #toConnectToWin, Player1, Player2)
+	- Declares end of game after victory or tie
+
+Player.cpp
+	- HumanPlayer - makes move at prompt
+	- BadPlayer - AI, makes random moves
+	- SmartPlayer - AI, makes best possible move, unbeatable if goes first
+
+Scaffold.cpp
+	- Implements board with a multidimensional vector
+	- Maintains history of moves with a stack
+
+support.cpp
+	- Implements SmartPlayer to find best possible move
+	- A map associates columns with outcomes, prioritizing early victories and delayed losses
+	- Recursion goes through all possible moves
+
+
+
+******************** HOW TO USE **************************
+
+#include <iostream>
+#include “interface.h”
+
+int main()
+{
+	//initialize types of players with name
+	SmartPlayer smart("smart");
+	HumanPlayer human("human");
+	BadPlayer bad("bad");
+
+	//initialize game
+	int nColumns = 10;
+	int nRows = 10;
+	int nToWin = 4;
+	Game game(nColumns, nRows, nToWin, &smart, &human);
+
+	//start to play
+	game.play();
+}
